@@ -1,24 +1,24 @@
 // ============================
 // IMPORTS
 // ============================
-
 const express = require('express');
 const mongoose = require('mongoose');
-const path = require("path");
+const passport = require('passport');
+const localStrategy = require('passport-local');
 const app = express();
+
+const User = require('./models/user');
 
 // ============================
 // SETUP
 // ============================
-
-app.use(express.static(path.join(__dirname, "client", "build")))
+app.set('view engine', 'ejs');
 
 // ============================
 // DATABASE
 // ============================
-
-// mongoose.connect('mongodb://localhost:27017/eztrackerDB', { useNewUrlParser: true });
-mongoose.connect('mongodb+srv://admin:QD3PIpQscMbHJeDH@eztrackerdb-mfsdl.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true })
+// mongoose.connect('mongodb://localhost:27017/<localDB>', { useNewUrlParser: true });
+mongoose.connect('mongodb+srv://admin:qSB1W8m0X1Yj8xoV@dbsreplicadb-a6tub.mongodb.net/test?retryWrites=true&w=majority', { useNewUrlParser: true })
 .then(() => {
   console.log('DB Connected!');
 }).catch(error => {
@@ -26,19 +26,27 @@ mongoose.connect('mongodb+srv://admin:QD3PIpQscMbHJeDH@eztrackerdb-mfsdl.mongodb
 });
 
 // ============================
+// PASSPORT CONFIG
+// ============================
+app.use(require('express-session')({
+  secret: 'Anything works for this string',
+  resave: false,
+  saveUninitialized: false,
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+// ============================
 // ROUTES
 // ============================
-
 const indexRoutes = require('./routes/index');
 app.use(indexRoutes);
 
 // ============================
 // START SERVER
 // ============================
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-});
-
 const port = process.env.PORT || 8000;
 app.listen(port, () => console.log('Server has started'));
