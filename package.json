@@ -1,0 +1,27 @@
+{
+  "name": "eztracker-web",
+  "version": "1.0.0",
+  "description": "EzTracker Site",
+  "main": "server.js",
+  "scripts": {
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gohyinhao/eztracker-web.git"
+  },
+  "author": "Goh Yin Hao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gohyinhao/eztracker-web/issues"
+  },
+  "homepage": "https://github.com/gohyinhao/eztracker-web#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.6.12"
+  },
+  "engines": {
+    "node": "10.15.3"
+  }
+}
