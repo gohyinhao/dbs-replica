@@ -1,0 +1,13 @@
+.navbar {
+    min-height: 80px;
+}
+
+.nav-item {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.navbar__divider {
+    border: 0.5px rgb(192, 192, 192) solid;
+    margin: 5px 0;
+}
