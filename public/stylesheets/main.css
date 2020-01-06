@@ -1,2 +1,13 @@
 @import "/stylesheets/navbar.css";
+@import "/stylesheets/login.css";
 
+#map {
+    height: 700px;
+    width: 700px;
+    display: inline-block;
+}
+
+.map-wrapper {
+    text-align: center;
+    margin-top: 50px;
+}

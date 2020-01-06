@@ -1,0 +1,49 @@
+<%- include('./partials/header') %>
+
+<div class="container map-wrapper">
+    <div id="map"></div>
+    <script>
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 1.341606, lng: 103.826247 },
+                zoom: 11,
+            });
+
+            const locations = [
+                {
+                    name: 'cck',
+                    position: { lat: 1.385389, lng: 103.744043 },
+                    address: 'whatever this address',
+                    contactNumber: 12345,
+                },
+                {
+                    name: 'East Coast Park',
+                    position: { lat: 1.298539, lng: 103.908019 },
+                    address: 'East Coast Park Road at East',
+                    contactNumber: 94124,
+                },
+            ];
+
+            locations.forEach(location => {
+                addMarker(location);
+            });
+
+            function addMarker(location) {
+                const marker = new google.maps.Marker({ position: location.position, map });
+
+                const infoWindow = new google.maps.InfoWindow({
+                    content: `<h3>${location.name}</h3><p>Address: ${location.address}</p><p>Contact: ${location.contactNumber}</p>`,
+                });
+
+                marker.addListener('click', function() {
+                    map.setZoom(15);
+                    map.setCenter(marker.getPosition());
+                    infoWindow.open(map, marker);
+                });
+            }
+        }
+    </script>
+</div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3kkQlIo6BMLSltAtdrzb2HFKpLXa-dVs&callback=initMap" async defer></script>
+
+<%- include('./partials/footer') %>

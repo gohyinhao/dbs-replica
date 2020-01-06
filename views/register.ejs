@@ -1,0 +1,27 @@
+<%- include('./partials/header') %>
+
+<div class="container">
+    <div class="row top-margin">
+        <div class="col"></div>
+        <div class="col-6">
+            <div class="image-wrapper">
+                <img src="/images/dbs_login_logo.png" alt="DBS Digibank Logo">
+            </div>
+
+            <form action="/register" method="POST">
+                <div class="form-group">
+                  <label for="username">User ID</label>
+                  <input type="text" class="form-control" name="username">
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" name="password">
+                </div>
+                <input type="submit" class="btn btn-danger btn-block" value="Sign Up!">
+            </form>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+
+<%- include('./partials/footer') %>

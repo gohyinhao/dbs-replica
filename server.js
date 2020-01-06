@@ -5,6 +5,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const localStrategy = require('passport-local');
+const flash = require('connect-flash');
 const app = express();
 
 const User = require('./models/user');
@@ -13,7 +14,9 @@ const User = require('./models/user');
 // SETUP
 // ============================
 app.set('view engine', 'ejs');
+app.use(flash());
 app.use(express.static(`${__dirname}/public`));
+app.use(express.urlencoded({ extended: true }));
 
 // ============================
 // DATABASE
@@ -39,6 +42,16 @@ app.use(passport.session());
 passport.use(new localStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+// ============================
+// MIDDLEWARE
+// ============================
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  res.locals.error = req.flash('error');
+  res.locals.success = req.flash('success');
+  next();
+});
 
 // ============================
 // ROUTES
